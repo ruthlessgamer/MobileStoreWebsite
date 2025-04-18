@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Successful</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .success-container {
+      text-align: center;
+      background: white;
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: scaleUp 0.5s ease-in-out;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .success-container h1 {
+      color: #28a745;
+      font-size: 2.5rem;
+    }
+
+    .success-container .emoji {
+      font-size: 60px;
+      animation: bounce 1s infinite;
+    }
+
+    .order-details {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .order-details strong {
+      color: #333;
+    }
+
+    .success-container button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .success-container button:hover {
+      background-color: #218838;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="emoji">🎉</div>
+    <h1>Order Confirmed!</h1>
+    <div id="order-summary" class="order-details">Loading order details...</div>
+    <button onclick="window.location.href='home.html'">Back to Home</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const order = JSON.parse(localStorage.getItem('lastOrder'));
+      const orderNumber = 'ORD' + Math.floor(Math.random() * 900000 + 100000);
+      const summaryDiv = document.getElementById('order-summary');
+
+      if (!order || !order.cart || order.cart.length === 0) {
+        summaryDiv.innerHTML = "<p>Order details not found.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:3000/api/products');
+        const products = await res.json();
+
+        let totalAmount = 0;
+        let productListHTML = "";
+
+        order.cart.forEach(item => {
+          const product = products.find(p => p.ProductID === item.productID);
+          if (product) {
+            totalAmount += product.Price * item.quantity;
+            productListHTML += `<li>${product.ProductName} × ${item.quantity} - ₹${product.Price * item.quantity}</li>`;
+          }
+        });
+
+        summaryDiv.innerHTML = `
+          <p><strong>Name:</strong> ${order.name}</p>
+          <p><strong>Phone:</strong> ${order.phone}</p>
+          <p><strong>Address:</strong> ${order.address}</p>
+          <p><strong>Order Number:</strong> ${orderNumber}</p>
+          <p><strong>Items Ordered:</strong></p>
+          <ul>${productListHTML}</ul>
+          <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
+        `;
+      } catch (err) {
+        console.error("Error loading product details:", err);
+        summaryDiv.innerHTML = "<p>⚠️ Failed to fetch product info.</p>";
+      }
+    });
+  </script>
+</body>
+</html>
