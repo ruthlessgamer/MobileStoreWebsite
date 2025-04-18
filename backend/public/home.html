@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - E-Store</title>
+  <link rel="stylesheet" href="./css/styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #74ebd5, #ACB6E5, #fbc2eb, #a6c0fe);
+      background-size: 400% 400%;
+      animation: animatedBG 15s ease infinite;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    @keyframes animatedBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    #categories {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #categories button {
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      margin: 0 10px 10px 0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #categories button:hover {
+      background-color: #2980b9;
+      transform: scale(1.1);
+    }
+
+    #products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #products div {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.7s ease;
+      transition: transform 0.3s;
+    }
+
+    #products div:hover {
+      transform: translateY(-5px);
+    }
+
+    #products h4 {
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    #products p {
+      margin: 6px 0;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    #products button {
+      background-color: #2ecc71;
+      padding: 10px 18px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #products button:hover {
+      background-color: #27ae60;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating cart button */
+    .cart-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #ff6b6b;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .cart-button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Cart count badge */
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 50%;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .cart-button-container {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Mobile Store</h1>
+
+  <div id="categories">
+    <button onclick="filterCategory('All')">All</button>
+    <button onclick="filterCategory('Mobiles')">Mobiles</button>
+    <button onclick="filterCategory('Accessories')">Mobile Accessories</button>
+  </div>
+
+  <div id="products"></div>
+
+  <!-- Floating cart button with cart count -->
+  <div class="cart-button-container">
+    <a href="cart.html" class="cart-button">
+      🛒 View Cart
+      <span id="cart-count" class="cart-count">0</span>
+    </a>
+  </div>
+
+  <script src="js/home.js"></script>
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    updateCartCount();
+  </script>
+</body>
+</html>

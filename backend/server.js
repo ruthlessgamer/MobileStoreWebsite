@@ -6,7 +6,7 @@ const mssql = require('mssql');     // Required for pool request
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Serve HTML, CSS, JS from root folder
 app.use(express.static(path.join(__dirname, '..')));

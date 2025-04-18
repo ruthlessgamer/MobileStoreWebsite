@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  color: #333;
+  min-height: 100vh;
+  animation: fadeInBody 1s ease-in-out;
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+h1, h2, h3, h4 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+  animation: slideDown 0.6s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+input {
+  padding: 12px;
+  width: 90%;
+  max-width: 400px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: block;
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 8px #3498db;
+  outline: none;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Product and Cart Item Styles */
+#products div, #cart-items div {
+  background: white;
+  padding: 20px;
+  margin: 15px auto;
+  border-radius: 10px;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  animation: fadeInCard 0.5s ease;
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#categories {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#categories button {
+  margin: 5px;
+}
+
+/* Success Message Box */
+.success-box {
+  padding: 20px;
+  background-color: #dff9fb;
+  border-left: 5px solid #27ae60;
+  border-radius: 10px;
+  animation: zoomIn 0.6s ease;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Checkout / Login Styling */
+form {
+  background: white;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeInCard 0.7s ease;
+}
+
+/* Order Summary Styling */
+#order-summary {
+  max-width: 700px;
+  margin: auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Utility */
+.center {
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #777;
+}
