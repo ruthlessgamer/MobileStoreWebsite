@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Serve HTML, CSS, JS from root folder
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middlewares
 app.use(cors());
@@ -21,8 +21,9 @@ app.use('/api/auth', authRoutes);  // 👈 Enable auth API routes
 
 // ✅ Test route
 app.get('/', (req, res) => {
-  res.send('🎉 Hello from MobileStore backend!');
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
+
 
 // ✅ Fetch all products
 app.get('/api/products', async (req, res) => {
