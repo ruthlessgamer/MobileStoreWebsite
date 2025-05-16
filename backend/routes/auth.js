@@ -25,11 +25,15 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: '❌ Invalid email or password' });
     }
 
+    // ✅ Check if admin
+    const isAdmin = (user.Email === 'admin@gmail.com' && user.Password === 'admin');
+
     res.json({
       success: true,
       message: '✅ Login successful',
       customerID: user.CustomerID,
-      name: user.Name
+      name: user.Name,
+      isAdmin: isAdmin   // 👈 Add isAdmin in response!
     });
 
   } catch (err) {

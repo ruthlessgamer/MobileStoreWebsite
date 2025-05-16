@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
     body {
       margin: 0;
@@ -87,46 +87,7 @@
     <button onclick="window.location.href='home.html'">Back to Home</button>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const order = JSON.parse(localStorage.getItem('lastOrder'));
-      const orderNumber = 'ORD' + Math.floor(Math.random() * 900000 + 100000);
-      const summaryDiv = document.getElementById('order-summary');
-
-      if (!order || !order.cart || order.cart.length === 0) {
-        summaryDiv.innerHTML = "<p>Order details not found.</p>";
-        return;
-      }
-
-      try {
-        const res = await fetch('http://localhost:3000/api/products');
-        const products = await res.json();
-
-        let totalAmount = 0;
-        let productListHTML = "";
-
-        order.cart.forEach(item => {
-          const product = products.find(p => p.ProductID === item.productID);
-          if (product) {
-            totalAmount += product.Price * item.quantity;
-            productListHTML += `<li>${product.ProductName} × ${item.quantity} - ₹${product.Price * item.quantity}</li>`;
-          }
-        });
-
-        summaryDiv.innerHTML = `
-          <p><strong>Name:</strong> ${order.name}</p>
-          <p><strong>Phone:</strong> ${order.phone}</p>
-          <p><strong>Address:</strong> ${order.address}</p>
-          <p><strong>Order Number:</strong> ${orderNumber}</p>
-          <p><strong>Items Ordered:</strong></p>
-          <ul>${productListHTML}</ul>
-          <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
-        `;
-      } catch (err) {
-        console.error("Error loading product details:", err);
-        summaryDiv.innerHTML = "<p>⚠️ Failed to fetch product info.</p>";
-      }
-    });
-  </script>
+  
+  <script src="/js/success.js" defer></script>
 </body>
 </html>

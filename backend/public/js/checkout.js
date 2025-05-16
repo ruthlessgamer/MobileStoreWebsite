@@ -19,10 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const customerID = localStorage.getItem('customerID');
+
     const order = {
       name,
       address,
       phone,
+      customerID,
       cart
     };
 
@@ -34,3 +37,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'success.html';
   });
 });
+
